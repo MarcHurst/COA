@@ -1,0 +1,30 @@
+{
+  "name": "coa",
+  "version": "1.0.0",
+  "description": "Manages COA PDFs for Muskoka Grown",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcHurst/COA.git"
+  },
+  "author": "Marc Hurst",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarcHurst/COA/issues"
+  },
+  "homepage": "https://github.com/MarcHurst/COA#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "google-auth-library": "^8.0.2",
+    "googleapis": "^100.0.0",
+    "mongodb": "^4.7.0",
+    "nodemon": "^2.0.16"
+  }
+}

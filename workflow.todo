@@ -1,0 +1,37 @@
+Initial Setup:
+    [] Create directory
+    [] git setup
+    [] npm init
+    [] readme.md
+
+Git Setup:
+    [] .gitignore
+
+Folder Structure:
+    [] public
+    [] views
+
+MongoDB:
+Express:
+    [] npm install express
+    const express = require("express")
+    const app = express()
+React:
+Node.js:
+    [] add node_modules to .gitignore
+    [] npm install dotenv (If you want to keep environment variables safe)
+
+Heroku:
+    [] heroku login
+    [] hero create {project}
+    [] echo "web: node server.js" > Procfile
+    git add .
+    git commit -m "{commit message}"
+    git push heroku main to deploy
+    [] git push heroku main
+
+dotenv:
+    [] npm install dotenv
+    [] touch .env
+    [] add .env to .gitignore
+    export PARAM="value"

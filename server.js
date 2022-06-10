@@ -55,17 +55,31 @@ app.get('/refresh', async (req, res) => {
         range: "Final"
     })
 
+    const getThirdPartyRows = await googleSheets.spreadsheets.values.get({
+        auth,
+        spreadsheetId: process.env.SSID,
+        range: "Third Party"
+    })
+
     const data = getRows.data.values.slice(5)
     let cleanData = data.filter(row => (row[6] && row.length > 6 && row[6] !== "none found"))
+
+    let cleanThirdPartyData = getThirdPartyRows.data.values.slice(5)
+        .filter(row => (row[6] && row.length > 6 && row[6] !== "none found"))
     
-    console.log(cleanData.length, "rows found")
+    console.log(cleanData.length+cleanThirdPartyData.length, "rows found")
     let objArr = []
     cleanData.forEach(row => {
         let lotNums = getLotNums(row[6])
             .map(num => objArr.push(new LotData(num, row)))
-        console.log(lotNums)
+        // console.log(lotNums)
     })
 
+    cleanThirdPartyData.forEach(row => {
+        let lotNums = getLotNums(row[6])
+            .map(num => objArr.push(new LotData(num, row)))
+    // console.log(lotNums)
+    })
     // Purge the DB
     db.collection('COA').remove({})
 

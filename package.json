@@ -1,7 +1,7 @@
 {
   "name": "coa",
   "version": "1.0.0",
-  "description": "Manages COA PDFs for Muskoka Grown",
+  "description": "Serves Certificate of Analysis data Muskoka Grown",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

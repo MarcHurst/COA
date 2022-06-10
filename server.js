@@ -84,7 +84,12 @@ app.get('/refresh', async (req, res) => {
 app.get('/api/:targetLotNum', async (req, res) => {
     db.collection('COA').findOne({lotNum: req.params.targetLotNum})
     .then(data => {
-        res.json(data)
+        console.log(data)
+        if (data) {
+            res.json(data)
+        } else {
+            res.json({result: "0 records found"})
+        }
     })
     .catch(err => console.error(err))
 })

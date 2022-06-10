@@ -1,5 +1,5 @@
 require('dotenv').config()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 const MongoClient = require('mongodb').MongoClient
 const express = require('express')

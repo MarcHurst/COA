@@ -1,6 +1,6 @@
 require('dotenv').config()
 const PORT = process.env.PORT || 3000
-
+const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient
 const express = require('express')
 const {google} = require('googleapis')
@@ -9,6 +9,9 @@ const LD = require('./lotdata')
 const utils = require('./utils')
 //const {LotData} = require('./lotdata')
 let LotData = LD.LotData
+
+let cleanData = utils.cleanData
+let bundleData = utils.bundleData
 
 const ssid = process.env.SSID
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
@@ -25,13 +28,12 @@ MongoClient.connect(dbConnectionStr, {useUnifiedTopology: true})
     })
     .catch(err => console.error(`Error connecting to MongoDB: ${err}`))
 
-const getLotNums = str => str.split(", ")
-    .filter(str => str.length > 0)
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+app.use(cors())
 
 app.get('/', (req, res) => {
     
@@ -51,16 +53,21 @@ app.get('/refresh', async (req, res) => {
 
     const getRows = await googleSheets.spreadsheets.values.get({
         auth,
-        spreadsheetId: process.env.SSID,
+        spreadsheetId: ssid, 
         range: "Final"
     })
 
     const getThirdPartyRows = await googleSheets.spreadsheets.values.get({
         auth,
-        spreadsheetId: process.env.SSID,
+        spreadsheetId: ssid,
         range: "Third Party"
     })
 
+    const refactorData = cleanData(getRows.data.values.slice(5))
+    const refactorThirdData = cleanData(getThirdPartyRows.data.values.slice(5))
+    const refactorObjArr = bundleData(refactorData, refactorThirdData)
+
+    /*
     const data = getRows.data.values.slice(5)
     let cleanData = data.filter(row => (row[6] && row.length > 6 && row[6] !== "none found"))
 
@@ -80,11 +87,13 @@ app.get('/refresh', async (req, res) => {
             .map(num => objArr.push(new LotData(num, row)))
     // console.log(lotNums)
     })
+    */
+
     // Purge the DB
     db.collection('COA').remove({})
 
     // Rebuild the DB
-    objArr.forEach(lotData => {
+    refactorObjArr.forEach(lotData => {
         db.collection('COA')
             .insertOne(lotData)
         .then(res => {
@@ -92,7 +101,7 @@ app.get('/refresh', async (req, res) => {
         })
         .catch(err => console.error(err))
     })
-    res.json(`${objArr.length} entries added to MongoDB.`)
+    res.json(`${refactorObjArr.length} entries added to MongoDB.`)
 })
 
 app.get('/api/:targetLotNum', async (req, res) => {

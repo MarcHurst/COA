@@ -83,4 +83,16 @@ app.get('/api/:targetLotNum', async (req, res) => {
     .catch(err => console.error(err))
 })
 
+app.get('/coa/:targetLotNum', async (req, res) => {
+   db.collection('COA').findOne({lotNum: req.params.targetLotNum})
+    .then(data => {
+        if (data) {
+            // Shunt data to template and render.
+        } else {
+            // Show page that says none found.
+        }
+    })
+    .catch(err => console.error(err))
+})
+
 app.listen(process.env.PORT, _ => console.log(`Listening on port ${process.env.PORT}!`))

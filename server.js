@@ -5,29 +5,17 @@ const MongoClient = require('mongodb').MongoClient
 const express = require('express')
 const {google} = require('googleapis')
 const {GoogleAuth} = require('google-auth-library')
-const LD = require('./lotdata')
 const utils = require('./utils')
-//const {LotData} = require('./lotdata')
-let LotData = LD.LotData
-
+const dbi = require('./db')
 let cleanData = utils.cleanData
 let bundleData = utils.bundleData
+const getDB = dbi.getDB
+const db = getDB()
 
 const ssid = process.env.SSID
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 const app = express()
-let db,
-    dbConnectionStr = process.env.DBSTRING,
-    dbName = 'muskokagrown'
-
-MongoClient.connect(dbConnectionStr, {useUnifiedTopology: true})
-    .then(client => {
-        console.log(`Connected to ${dbName} on MongoDB`)
-        db = client.db(dbName)
-    })
-    .catch(err => console.error(`Error connecting to MongoDB: ${err}`))
-
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
@@ -67,29 +55,7 @@ app.get('/refresh', async (req, res) => {
     const refactorThirdData = cleanData(getThirdPartyRows.data.values.slice(5))
     const refactorObjArr = bundleData(refactorData, refactorThirdData)
 
-    /*
-    const data = getRows.data.values.slice(5)
-    let cleanData = data.filter(row => (row[6] && row.length > 6 && row[6] !== "none found"))
-
-    let cleanThirdPartyData = getThirdPartyRows.data.values.slice(5)
-        .filter(row => (row[6] && row.length > 6 && row[6] !== "none found"))
-    
-    console.log(cleanData.length+cleanThirdPartyData.length, "rows found")
-    let objArr = []
-    cleanData.forEach(row => {
-        let lotNums = getLotNums(row[6])
-            .map(num => objArr.push(new LotData(num, row)))
-        // console.log(lotNums)
-    })
-
-    cleanThirdPartyData.forEach(row => {
-        let lotNums = getLotNums(row[6])
-            .map(num => objArr.push(new LotData(num, row)))
-    // console.log(lotNums)
-    })
-    */
-
-    // Purge the DB
+     // Purge the DB
     db.collection('COA').remove({})
 
     // Rebuild the DB

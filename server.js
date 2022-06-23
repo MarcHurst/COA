@@ -71,7 +71,9 @@ app.get('/refresh', async (req, res) => {
 
 app.get('/api/:targetLotNum', async (req, res) => {
     try {
+        console.log(req.params)
         let targetLotNum = Number(req.params.targetLotNum)
+        console.log("Target lot number:", targetLotNum)
         let lotData = await COA.findOne({lotNum: targetLotNum})
         console.log(lotData)
         res.json(lotData)
@@ -81,15 +83,7 @@ app.get('/api/:targetLotNum', async (req, res) => {
 })
 
 app.get('/coa/:targetLotNum', async (req, res) => {
-    db.collection('COA').findOne({lotNum: req.params.targetLotNum})
-        .then(data => {
-            if (data) {
-                // Shunt data to template and render.
-            } else {
-                // Show page that says none found.
-            }
-        })
-        .catch(err => console.error(err))
+
 })
 
 app.listen(PORT, _ => console.log(`Listening on port ${PORT}!`))

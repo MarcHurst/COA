@@ -34,7 +34,7 @@ const COASchema = new mongoose.Schema({
     confirmation: {
         type: String,
     },
-    phytoCannabinoids: {
+    phytocannabinoids: {
         d9THC: {
             type: String,
             required: true

@@ -7,10 +7,12 @@ const mongoose = require('mongoose')
 const express = require('express')
 const {google} = require('googleapis')
 const {GoogleAuth} = require('google-auth-library')
+const {cleanData, bundleData} = require('./utils')
 const connectDB = require('./config/db')
 
 const COA = require('./models/coa')
 connectDB()
+
 const ssid = process.env.SSID
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
@@ -23,7 +25,7 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/', (req, res) => {
-    
+    res.send("All good in the hood.  But you shouldn't be using this route.")
 })
 
 app.get('/refresh', async (req, res) => {
@@ -54,13 +56,9 @@ app.get('/refresh', async (req, res) => {
     const refactorThirdData = cleanData(getThirdPartyRows.data.values.slice(5))
     const refactorObjArr = bundleData(refactorData, refactorThirdData)
 
-     // Purge the DB
-    db.collection('COA').remove({})
-
-    // Rebuild the DB
+    // Build the DB
     refactorObjArr.forEach(async lotData => {
         try {
-            // console.log(lotData)
             await COA.create(lotData)
         } catch (err) {
             console.error(err)
@@ -82,15 +80,15 @@ app.get('/api/:targetLotNum', async (req, res) => {
 })
 
 app.get('/coa/:targetLotNum', async (req, res) => {
-   db.collection('COA').findOne({lotNum: req.params.targetLotNum})
-    .then(data => {
-        if (data) {
-            // Shunt data to template and render.
-        } else {
-            // Show page that says none found.
-        }
-    })
-    .catch(err => console.error(err))
+    db.collection('COA').findOne({lotNum: req.params.targetLotNum})
+        .then(data => {
+            if (data) {
+                // Shunt data to template and render.
+            } else {
+                // Show page that says none found.
+            }
+        })
+        .catch(err => console.error(err))
 })
 
-app.listen(process.env.PORT, _ => console.log(`Listening on port ${process.env.PORT}!`))
+app.listen(PORT, _ => console.log(`Listening on port ${PORT}!`))

@@ -23,6 +23,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cors())
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
     res.send("All good in the hood.  But you shouldn't be using this route.")

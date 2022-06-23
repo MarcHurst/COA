@@ -72,9 +72,9 @@ app.get('/refresh', async (req, res) => {
 app.get('/api/:targetLotNum', async (req, res) => {
     try {
         console.log(req.params)
-        let targetLotNum = Number(req.params.targetLotNum)
+        let targetLotNum = req.params.targetLotNum
         console.log("Target lot number:", targetLotNum)
-        let lotData = await COA.findOne({lotNum: targetLotNum})
+        let lotData = await COA.findOne({lotNum: req.params.targetLotNum})
         console.log(lotData)
         res.json(lotData)
     } catch (err) {

@@ -27,5 +27,8 @@
     "googleapis": "^100.0.0",
     "mongodb": "^4.7.0",
     "mongoose": "^6.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
   }
 }

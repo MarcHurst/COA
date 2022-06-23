@@ -1,17 +1,14 @@
-require('dotenv').config()
+const path = require('path')
 const PORT = process.env.PORT || 3000
 const cors = require('cors')
-const MongoClient = require('mongodb').MongoClient
+const mongoose = require('mongoose')
 const express = require('express')
 const {google} = require('googleapis')
 const {GoogleAuth} = require('google-auth-library')
-const utils = require('./utils')
-const dbi = require('./db')
-let cleanData = utils.cleanData
-let bundleData = utils.bundleData
-const getDB = dbi.getDB
-const db = getDB()
+const connectDB = require('./config/db')
 
+const COA = require('./models/coa')
+connectDB()
 const ssid = process.env.SSID
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
@@ -59,28 +56,27 @@ app.get('/refresh', async (req, res) => {
     db.collection('COA').remove({})
 
     // Rebuild the DB
-    refactorObjArr.forEach(lotData => {
-        db.collection('COA')
-            .insertOne(lotData)
-        .then(res => {
-            console.log(`${lotData.lotNum} successfully added`)
-        })
-        .catch(err => console.error(err))
+    refactorObjArr.forEach(async lotData => {
+        try {
+            // console.log(lotData)
+            await COA.create(lotData)
+        } catch (err) {
+            console.error(err)
+            console.log(lotData)
+        }
     })
-    res.json(`${refactorObjArr.length} entries added to MongoDB.`)
+    res.send(`${refactorObjArr.length} entries added to MongoDB.`)
 })
 
 app.get('/api/:targetLotNum', async (req, res) => {
-    db.collection('COA').findOne({lotNum: req.params.targetLotNum})
-    .then(data => {
-        console.log(data)
-        if (data) {
-            res.json(data)
-        } else {
-            res.json({result: "0 records found"})
-        }
-    })
-    .catch(err => console.error(err))
+    try {
+        let targetLotNum = Number(req.params.targetLotNum)
+        let lotData = await COA.findOne({lotNum: targetLotNum})
+        console.log(lotData)
+        res.json(lotData)
+    } catch (err) {
+        console.error(err)
+    }
 })
 
 app.get('/coa/:targetLotNum', async (req, res) => {

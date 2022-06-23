@@ -74,7 +74,7 @@ app.get('/api/:targetLotNum', async (req, res) => {
         console.log(req.params)
         let targetLotNum = req.params.targetLotNum.toString()
         console.log("Target lot number:", targetLotNum)
-        let lotData = await COA.findOne({lotNum: req.params.targetLotNum})
+        let lotData = await COA.findOne({lotNum: req.params.targetLotNum}).lean()
         console.log(lotData)
         res.json(lotData)
     } catch (err) {

@@ -3,7 +3,7 @@ const { LotData } = require("./lotdata")
 const getLotNums = str => str.split(", ")
     .filter(str => str.length > 0)
 
-const cleanData = (arr) => arr.filter(row => (row[6] && row.length > 6 && row[6] !== "none found"))
+const cleanData = (arr) => arr.filter(row => (row[6] && row.length > 6 && row[6] !== "none found" && row[5].length >= 2))
 
 const objectify = (lotNum, rowArr) => new LotData(lotNum, rowArr)
 

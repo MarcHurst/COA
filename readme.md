@@ -1,8 +1,6 @@
 
 # Muskoka Grown COA API
-
 This API will return lot data when provided with the lot number.
-
 
 ## API Reference
 

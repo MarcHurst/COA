@@ -32,7 +32,7 @@ const populateCOAData = data => {
     document.querySelector("#targetTerps").innerText = data.terpenes.totalTerpenes
     document.querySelector("#targetTHC").innerText = data.phytocannabinoids.totalTHC
     document.querySelector("#targetCBD").innerText = data.phytocannabinoids.totalCBD
-    document.querySelector("#targetURL").href = `https://muskoka-grown-coa.herokuapp.com/coa/1542101`
+    document.querySelector("#targetURL").href = `https://muskoka-grown-coa.herokuapp.com/coa/${data.lotNum}`
     showCOAData()
 }
 

@@ -1,3 +1,4 @@
 node_modules
 credentials.json
 config/config.env
+.DS_Store

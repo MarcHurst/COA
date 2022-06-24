@@ -8,7 +8,7 @@ class LotData {
         this.batchReleased = arr[5]
         this.lotNum = lotNum
         this.confirmation = arr[7]
-        this.phytoCannabinoids = {
+        this.phytocannabinoids = {
             d9THC: arr[8],
             totalTHC: arr[9],
             THCA: arr[10],

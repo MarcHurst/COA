@@ -4,19 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Demo</title>
+
+    <!-- Header Inclusion -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <script defer src="index.js"></script>
+    <!-- End Header-->
+
 </head>
 <body>
+<!-- Body Inclusion -->
     <section id="coaSearch">
         <h3>Search for your lot #</h3>
         <input id="lotNumInput" name="Lotnumber" type="number" value="1542101" maxlength="7">
-        <i id="searchButton" class="fa-solid fa-cannabis"></i>
+        <button id="searchButton"><i class="fa-solid fa-cannabis"></i> Search <i class="fa-solid fa-cannabis"></i></button>
         <p id="errorPara"></p>
-
+        <section id="coaResultsSection" class="hidden">
+            <table id="coaResultsTable">
+                <thead>
+                    <tr>
+                        <th class="coaHeaderCell">Strain</th>
+                        <th class="coaHeaderCell">Total Terps</th>
+                        <th class="coaHeaderCell">Total THC</th>
+                        <th class="coaHeaderCell">Total CBD</th>
+                        <th class="coaHeaderCell">Get Full Data</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td id="targetStrain" class="coaDataCell"></td>
+                    <td id="targetTerps" class="coaDataCell"></td>
+                    <td id="targetTHC" class="coaDataCell"></td>
+                    <td id="targetCBD" class="coaDataCell"></td>
+                    <td class="coaDataCell"><a href="" id="targetURL">Link</a></td>
+                </tr>
+            </table>
+        </section>        
     </section>
-    
+<!-- End Body Inclusion-->
 </body>
 </html>

@@ -84,7 +84,19 @@ app.get('/api/:targetLotNum', async (req, res) => {
 })
 
 app.get('/coa/:targetLotNum', async (req, res) => {
-
+    try {
+        console.log(req.params)
+        let lotData = await COA.findOne({
+            lotNum: req.params.targetLotNum
+        })
+            .lean()
+        console.log(lotData)
+        res.render("coa", {
+            lotData: lotData
+        })
+    } catch (err) {
+        console.error(err)
+    }   
 })
 
 app.listen(PORT, _ => console.log(`Listening on port ${PORT}!`))

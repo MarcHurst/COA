@@ -1,0 +1,63 @@
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#errorPara {
+    color: red;
+}
+
+#coaResultsSection {
+    display: flex;
+    flex-direction: row;
+}
+
+.coaDataPoint {
+    display: flex;
+    flex-direction: column;
+}
+
+#sectionTop,
+#sectionMid,
+#sectionBottom {
+    display: flex;
+    justify-content: space-around;
+}
+
+ .coaHeaderCell {
+    color: white;
+    background: black;
+ }
+
+ .coaDataCell {
+
+ }
+
+ .coaLabelCell {
+
+ }
+
+#infoTable,
+#physicalTable,
+#chemicalTable,
+#microbialTable,
+#terpsTable {
+    width: 380px;
+}
+
+#cannabinoidTable {
+    width: 100%;
+}
+
+.footerCell {
+    border: 2px solid black;
+}

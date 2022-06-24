@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cannabis Certificate of Analysis and Certificate of Manufacture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <section class="container">
+        <header>
+            <h1>Cannabis Certificate of Analysis and Certificate of Manufacture</h1>
+            <img width="100px" src="/mgLogo.png" alt="MG Header Logo">
+        </header>
+        <section id="sectionTop">
+            <section id="topSectionLeft">
+                <table id="infoTable">
+                    <thead>
+                        <tr>
+                            <th class="coaHeaderCell" colspan="2">General</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td class="coaLabelCell">Strain</td>
+                        <td class="coaDataCell"><%= lotData.strain %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Lot #</td>
+                        <td class="coaDataCell"><%= lotData.lotNum %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Product Category</td>
+                        <td class="coaDataCell"><%= lotData.category %> </td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Grown At</td>
+                        <td class="coaDataCell"><%= lotData.grownAt %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Batch #</td>
+                        <td class="coaDataCell"><%= lotData.batch %></td>
+                    </tr>
+                </table>
+            </section>
+            <section id="topSectionRight">
+                <table id="physicalTable">
+                    <thead>
+                        <tr>
+                            <th colspan="2" class="coaHeaderCell">Physical Tests</td>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td class="coaLabelCell">Foreign Matter</td>
+                            <td class="coaDataCell"><%= lotData.foreignMatter %></td>
+                        </tr>
+                        <tr>
+                            <td class="coaLabelCell">Loss on Drying %</td>
+                            <td class="coaDataCell"><%= lotData.lossOnDryMoisturePercent %></td>
+                        </tr>
+                        <tr>
+                            <td class="coaLabelCell">Irradiated</td>
+                            <td class="coaDataCell"><%= lotData.irradiated %></td>
+                        </tr>
+                </table>
+            </section>
+        </section>
+        <section id="sectionMid">
+            <section id="midSectionLeft">
+                <table id="chemicalTable">
+                    <thead>
+                        <tr>
+                            <th class="coaHeaderCell" colspan="2">Chemical Contaminants</td>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td class="coaLabelCell">Pesticides</td>
+                        <td class="coaDataCell"><%= lotData.pesticides %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Heavy Metals</td> <!-- GWAR! -->
+                        <td class="coaDataCell"><%= lotData.heavyMetals %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Aflatoxins</td>
+                        <td class="coaDataCell"><%= lotData.aflatoxins %></td>
+                    </tr>
+                </table>
+                <table id="microbialTable">
+                    <thead>
+                        <tr>
+                            <th class="coaHeaderCell" colspan="2">Microbial Contaminants</td>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td class="coaLabelCell">Total Aerobic Bacteria</td>
+                        <td class="coaDataCell"><%= lotData.totalAerobicBacteria %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Total Yeast & Mould</td> <!-- GWAR! -->
+                        <td class="coaDataCell"><%= lotData.totalYeastMould %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Bile-Tolerant Gram Negative</td>
+                        <td class="coaDataCell"><%= lotData.btgnBacteria %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Pathogens</td>
+                        <td class="coaDataCell"><%= lotData.pathogens %></td>
+                    </tr>                     
+                </table>
+            </section>
+            <section id="midSectionRight">
+                <table id="terpsTable">
+                    <thead>
+                        <tr><th class="coaHeaderCell" colspan="2">Terpenes</td></tr>
+                    </thead>
+                    <tr>
+                        <td class="coaLabelCell">Beta-Myrcene</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.betaMyrcene %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Limonene</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.limonene %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Trans-Caryophyllene</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.transCaryophyllene %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Alpha-Bisabolol</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.alphaBisabolol %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Alpha-Humulene</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.alphaHumulene %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Linalool</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.linalool %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Farnesene</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.farnesene %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Alpha-Pinene</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.alphaPinene %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Ocimene</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.ocimene %></td>
+                    </tr>
+                    <tr>
+                        <td class="coaLabelCell">Trans-Nerolidol</td>
+                        <td class="coaDataCell"><%= lotData.terpenes.transNerolidol %></td>
+                    </tr>
+                </table>
+            </section>
+        </section>
+        <section id="sectionBottom">
+            <table id="cannabinoidTable">
+                <thead><tr><th class="coaHeaderCell" colspan="4">Phytocannabinoids</th></tr></thead>
+                <tr>
+                    <td class="coaLabelCell">Δ9-THC</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.d9THC %></td>
+                    <td class="coaLabelCell">CBD</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.CBD %></td>
+                </tr>
+                <tr>
+                    <td class="coaLabelCell">THCA</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.THCA %></td>
+                    <td class="coaLabelCell">CBDA</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.CBDA %></td>
+                </tr>
+                <tr>
+                    <td class="coaLabelCell">Total THC</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.totalTHC %></td>
+                    <td class="coaLabelCell">Total CBD</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.totalCBD %></td>
+                </tr>
+                <tr>
+                    <td class="coaLabelCell">CBN</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.CBN %></td>
+                    <td class="coaLabelCell">CBG</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.CBG %></td>
+                </tr>
+                <tr>
+                    <td class="coaLabelCell">CBC</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.CBC %></td>
+                    <td class="coaLabelCell">CBGA</td>
+                    <td class="coaDataCell"><%= lotData.phytocannabinoids.CBGA %></td>
+                </tr>
+            </table>
+        </section>
+        <footer>
+            <table id="footerTable">
+                <tr>
+                    <td class="footerCell">
+                        <p class="footerText">Total THC = Δ9-THC + Δ9-THCA*(0.877)</p>
+                        <p class="footerText">Total CBD = Δ9-CBD + Δ9-CBDA*(0.877)</p>
+                        <p class="footerText">Loss on Drying (LOD) Method - USP &lt;731&gt;; Water Activity Method - USP &lt;922&gt;; Foreign Matter - EP &lt;2.8.2&gt;; Aflatoxins - EP 2.8.2, USP &lt;561&gt;; Bile-tolerant gram negative - EP &lt;2.8.13&gt;; Total Aerobic Bacteria Count - EP &lt;2.8.12>; Total Yeast and Mold Count - EP &lt;2.8.12>; Escherichia coli - EP &lt;2.8.13>; Pseudomonas aeruginosa - USP &lt;62>; Staphylococcus aureus, Salmonella Species - EP &lt;2.8.13&gt;;</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="footerCell">
+                        <p class="footerText">I hereby certify that the above information is authentic and accurate. The batch processing, packaging and analysis records were reviewed and found to be in compliance with Part 5 (Good Production Practices) of the Cannabis Regulations; We have verified that the product composition, labelling and packaging are in compliance with all applicable regulations and therefore deem this product acceptable for sale; A complete and accurate certificate of analysis is included with every batch released for sale; The testing of the product is performed on a sample that is representative of the entire production lot offered for sale; The testing is performed by a laboratory qualified for testing of cannabis products.</p>
+                        <img width="250px" src="/ashSig.png" alt="Ash's Signature">
+                        <p class="footerNameText">Ashwini Kumar Gaddam, Director of Quality and Regulatory</p>
+                    </td>
+                </tr>
+            </table>
+        </footer>
+    </section>
+</body>
+</html>

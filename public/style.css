@@ -1,13 +1,4 @@
-header {
-    display: flex;
-    justify-content: space-between;
-}
-
-.container {
-    width: 800px;
-    margin: 0 auto;
-}
-
+/* This section is for the preview stuff */
 .hidden {
     display: none !important;
 }
@@ -21,9 +12,20 @@ header {
     flex-direction: row;
 }
 
-.coaDataPoint {
+.coaHeaderCell {
+    color: white;
+    background: black;
+}
+
+/* This is for the full-page COA data */
+header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
 }
 
 #sectionTop,
@@ -33,18 +35,10 @@ header {
     justify-content: space-around;
 }
 
- .coaHeaderCell {
+.coaHeaderCell {
     color: white;
     background: black;
- }
-
- .coaDataCell {
-
- }
-
- .coaLabelCell {
-
- }
+}
 
 #infoTable,
 #physicalTable,

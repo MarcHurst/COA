@@ -1,0 +1,117 @@
+****************
+*     HTML     *
+****************
+
+This goes into the <head> tag of the page.
+    <!-- Header Inclusion -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- End Header-->
+
+
+This goes into the body, where you'd like the results to slide in and out.
+<!-- Body Inclusion -->
+    <section id="coaSearch">
+        <h3>Search for your lot #</h3>
+        <input id="lotNumInput" name="Lotnumber" type="number" maxlength="7">
+        <button id="searchButton"><i class="fa-solid fa-cannabis"></i> Search <i class="fa-solid fa-cannabis"></i></button>
+        <p id="errorPara"></p>
+        <section id="coaResultsSection" class="hidden">
+            <table id="coaResultsTable">
+                <thead>
+                    <tr>
+                        <th class="coaHeaderCell">Strain</th>
+                        <th class="coaHeaderCell">Total Terps</th>
+                        <th class="coaHeaderCell">Total THC</th>
+                        <th class="coaHeaderCell">Total CBD</th>
+                        <th class="coaHeaderCell">Get Full Data</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td id="targetStrain" class="coaDataCell"></td>
+                    <td id="targetTerps" class="coaDataCell"></td>
+                    <td id="targetTHC" class="coaDataCell"></td>
+                    <td id="targetCBD" class="coaDataCell"></td>
+                    <td class="coaDataCell"><a href="" target="_blank" id="targetURL">Link</a></td>
+                </tr>
+            </table>
+        </section>        
+    </section>
+<!-- End Body Inclusion-->
+
+*************
+*    CSS    *
+*************
+
+.hidden {
+    display: none !important;
+}
+
+#errorPara {
+    color: red;
+}
+
+#coaResultsSection {
+    display: flex;
+    flex-direction: row;
+}
+
+.coaHeaderCell {
+    color: white;
+    background: black;
+}
+
+************
+*    JS    *
+************
+
+document.addEventListener("DOMContentLoaded", async _ => {
+    document.querySelector("#searchButton").addEventListener("click", async _ => {
+        if (isInputValid()) {
+            showErrorText("")
+            let targetLot = document.querySelector("#lotNumInput").value
+            getLotData(targetLot)
+                .then( lotData => {
+                    receiveData(lotData)
+                })
+                .catch(err => console.error(err))
+        } else {
+            showErrorText(`Please ensure that your 7 digit lot # is fully included.`)
+        }
+    })
+})
+
+const getLotData = async lotNum => {
+    const response = await fetch(`https://muskoka-grown-coa.herokuapp.com/api/${lotNum}`)
+    const data = await response.json()
+    return data 
+}
+
+const isInputValid = _ => document.querySelector("#lotNumInput").value.length == 7
+
+const hideCOAData = _ => document.querySelector("#coaResultsSection").classList.add("hidden") 
+
+const showCOAData = _ => document.querySelector("#coaResultsSection").classList.remove("hidden")
+
+const populateCOAData = data => {
+    console.log(`Data provided:`, data)
+    document.querySelector("#targetStrain").innerText = data.strain
+    document.querySelector("#targetTerps").innerText = data.terpenes.totalTerpenes
+    document.querySelector("#targetTHC").innerText = data.phytocannabinoids.totalTHC
+    document.querySelector("#targetCBD").innerText = data.phytocannabinoids.totalCBD
+    document.querySelector("#targetURL").href = `https://muskoka-grown-coa.herokuapp.com/coa/${data.lotNum}`
+    showCOAData()
+}
+
+const showErrorText = err => {
+    document.querySelector("#errorPara").innerText = err
+}
+
+const receiveData = data => {
+    if (data === null) {
+        showErrorText("Invalid Lot Number.  No lots prior to 2022 are included in these records.  Please contact us if you can't find your info.")
+        hideCOAData
+    } else {
+        showErrorText("")
+        populateCOAData(data)
+    }
+}

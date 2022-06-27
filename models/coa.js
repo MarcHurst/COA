@@ -104,7 +104,7 @@ const COASchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    aflotoxins: {
+    aflatoxins: {
         type: String,
         required: true
     },

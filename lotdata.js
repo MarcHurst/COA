@@ -27,7 +27,7 @@ class LotData {
         this.paSa = arr[22]
         this.pathogens = arr[23]
         this.irradiated = arr[24]
-        this.aflotoxins = arr[25]
+        this.aflatoxins = arr[25]
         this.lossOnDryMoisturePercent = arr[26]
         this.pesticides = arr[27]
         this.heavyMetals = arr[28]
